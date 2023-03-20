@@ -1,0 +1,14 @@
+0. Naujas projektas (!)
+1. Kiekvienas fakultete esantis studentas turi:
+    pažymėjimo nr.;
+    pavardė vardas (vienas laukelis);
+    gimimo data;
+    grupė;
+    vidurkis.
+2. Fakultete studijuoja 10 studentų iš skirtingų grupių ir su skirtingais vidurkiais.
+3. Atspausdinti visus fakulteto studentus vartotojui į ekraną.
+4. Suteikti galimybę vartotojui rasti konkrečios grupės studentų skaičių, panaudojant funkciją 'int gautiFakultetoStudentus(String grupe, ArrayList studentai)'.
+5. Surikiuoti ir atspausdinti pagal pažangumą moksleivius nuo geriausiai iki prasčiausiai besimokančio.
+6. Pašalinti iš sąrašo tuos moksleivius, kurių vidurkis neigiamas (mažiau už 4). Atspausdinti pakeistą sąrašą.
+7. Sukeisti vidurkius geriausiai ir prasčiausiai besimokančių studentų.
+8. Sukurti galimybę vartotojui atlikti studentų paiešką pagal pavardę arba gimimo datą. Vartotojas turi įvesti kriterijus į terminalą (Scanner).
