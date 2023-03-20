@@ -88,21 +88,27 @@ public class Main {
 
     //7. Sukeisti vidurkius geriausiai ir prasčiausiai besimokančių studentų.
     public static int minVidurkis(ArrayList<Studentai> sarasas) {
-        Map<Integer, Double> min = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
-        //   Set<Integer> set = min.keySet();
-        //   System.out.println(set);
-
-        Collection<Double> collection = min.values();
-         System.out.println(collection);
-        ArrayList<Double> arr = new ArrayList<>(min.values());
-        System.out.println(arr);
-        Double minValue = arr.get(0);
+       Map<Integer, Double> min = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
+//        //   Set<Integer> set = min.keySet();
+//        //   System.out.println(set);
+//
+//        Collection<Double> collection = min.values();
+//         System.out.println(collection);
+//        ArrayList<Double> arr = new ArrayList<>(min.values());
+//        System.out.println(arr);
+//        Double minValue = arr.get(0);
+//        int index = 0;
+//        for (int i = 0; i < arr.size(); i++) {
+//            if (arr.get(i) < minValue) {
+//                minValue = arr.get(i);
+//                index = i;
+//            }
+//        }
         int index = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i) < minValue) {
-                minValue = arr.get(i);
-                index = i;
-            }
+        for ( Map.Entry<Integer,Double> e : min.entrySet() ) {
+            Integer key = e.getKey();
+            Double val = e.getValue();
+            index++;
         }
 
 
