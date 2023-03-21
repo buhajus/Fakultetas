@@ -41,9 +41,8 @@ public class Main {
 
         spausdintiSarasa(sudentuSarasas);
 
-
-
-
+        System.out.println();
+        paieska(sudentuSarasas);
 
 
     }
@@ -138,23 +137,35 @@ public class Main {
         Collections.swap(sarasas, min, max);
 
     }
-    public static double maxVidurkis(ArrayList<Studentai> sarasas){
+
+    public static double maxVidurkis(ArrayList<Studentai> sarasas) {
         Map<Integer, Double> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
         double max = Collections.max(map.values());
-        return  max;
+        return max;
     }
-    public static double minVidurkis(ArrayList<Studentai> sarasas){
+
+    public static double minVidurkis(ArrayList<Studentai> sarasas) {
         Map<Integer, Double> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
         double min = Collections.min(map.values());
-        return  min;
+        return min;
     }
     //8. Sukurti galimybę vartotojui atlikti studentų paiešką pagal pavardę arba gimimo datą. Vartotojas turi įvesti kriterijus į terminalą (Scanner).
 
-    public static void paieska(ArrayList<Studentai> sarasas, String fraze){
+    public static void paieska(ArrayList<Studentai> sarasas) {
         Scanner scan = new Scanner(System.in);
-        Map<String, String> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPavardeVardas, Studentai::getGimimoData));
+     //   Map<String, String> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPavardeVardas, Studentai::getGimimoData));
         System.out.println("Paieška pagal stutendo pavardė arba gimimo datą (YYYY-mm-dd)");
+        String paieska = scan.nextLine();
+        Iterator<Studentai> iterator = sarasas.iterator();
 
+        while (iterator.hasNext()) {
+            Studentai studentai = iterator.next();
+            String dalinam[] = studentai.getPavardeVardas().split(" ");
+            String pavarde = dalinam[0];
 
+            if (studentai.getGimimoData().equals(paieska) || pavarde.equals(paieska))  {
+                System.out.println(studentai);
+            }
+        }
     }
 }
