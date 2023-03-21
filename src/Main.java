@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,13 +20,13 @@ public class Main {
         System.out.println("Studentų sąrašas");
         spausdintiSarasa(sudentuSarasas);
 
-        System.out.println("Praščiausio studento vidurkis ");
-        System.out.println(minVidurkis(sudentuSarasas));
-        System.out.println("Pažangiausio studento vidurkis ");
-        System.out.println(maxVidurkis(sudentuSarasas));
+//        System.out.println("Praščiausio studento vidurkis ");
+//        System.out.println(minVidurkis(sudentuSarasas));
+//        System.out.println("Pažangiausio studento vidurkis ");
+//        System.out.println(maxVidurkis(sudentuSarasas));
 
-        System.out.println("Swap");
-        swap(sudentuSarasas, minVidurkis(sudentuSarasas), maxVidurkis(sudentuSarasas));
+        System.out.println("\nSwap : max - " + maxVidurkis(sudentuSarasas) + " sukeičiam su min " + minVidurkis(sudentuSarasas));
+        swap(sudentuSarasas, minVidurkioIndex(sudentuSarasas), maxVidurkioIndex(sudentuSarasas));
         spausdintiSarasa(sudentuSarasas);
 
         System.out.print("\nStudentų skaičius pagal grupę: \t");
@@ -43,10 +42,8 @@ public class Main {
         spausdintiSarasa(sudentuSarasas);
 
 
-        spausdintiSarasa(sudentuSarasas);
-        sudentuSarasas.clear();
 
-        spausdintiSarasa(sudentuSarasas);
+
 
 
     }
@@ -77,21 +74,17 @@ public class Main {
             if (studentai.getVidurkis() <= vidurkis) {
                 System.out.println(studentai);
                 i.remove();
-
             }
         }
 
         System.out.println("\nLikę gerai besimokantys studentai");
-
-
     }
 
     //7. Sukeisti vidurkius geriausiai ir prasčiausiai besimokančių studentų.
-    public static int minVidurkis(ArrayList<Studentai> sarasas) {
-       Map<Integer, Double> min = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
+    public static int minVidurkioIndex(ArrayList<Studentai> sarasas) {
+        //Map<Integer, Double> min = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
 //        //   Set<Integer> set = min.keySet();
 //        //   System.out.println(set);
-//
 //        Collection<Double> collection = min.values();
 //         System.out.println(collection);
 //        ArrayList<Double> arr = new ArrayList<>(min.values());
@@ -104,37 +97,64 @@ public class Main {
 //                index = i;
 //            }
 //        }
+        Iterator<Studentai> st = sarasas.iterator();
+
+        double minval = 99999;
         int index = 0;
-        for ( Map.Entry<Integer,Double> e : min.entrySet() ) {
-            Integer key = e.getKey();
-            Double val = e.getValue();
-            index++;
-        }
+        int i = 0;
 
-
-        return index;
-    }
-
-    public static int maxVidurkis(ArrayList<Studentai> sarasas) {
-        Map<Integer, Double> max = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
-        ArrayList<Double> arr = new ArrayList<>(max.values());
-        double maxValue = -9999;
-        int maxIndex = 0;
-       // System.out.println(max.get(3));
-       // double maxFromList = Collections.max(max.values());
-        for (int i = 0; i < sarasas.size(); i++) {
-            if (arr.get(i) > maxValue) {
-                maxValue = arr.get(i);
-                maxIndex = i;
+        for (sarasas.iterator(); st.hasNext(); index++) {
+            Studentai studentai = st.next();
+            if (studentai.getVidurkis() < minval) {
+                minval = studentai.getVidurkis();
+                i = index;
             }
         }
 
-        return maxIndex;
+        return i;
+    }
+
+    public static int maxVidurkioIndex(ArrayList<Studentai> sarasas) {
+
+        Iterator<Studentai> st = sarasas.iterator();
+
+        double maxVal = -99999;
+        int i = 0;
+        int index = 0;
+
+        for (sarasas.iterator(); st.hasNext(); index++) {
+            Studentai studentai = st.next();
+            if (studentai.getVidurkis() > maxVal) {
+                maxVal = studentai.getVidurkis();
+                i = index;
+            }
+        }
+
+        return i;
     }
 
     public static void swap(ArrayList<Studentai> sarasas, int min, int max) {
 
         Collections.swap(sarasas, min, max);
+
+    }
+    public static double maxVidurkis(ArrayList<Studentai> sarasas){
+        Map<Integer, Double> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
+        double max = Collections.max(map.values());
+        return  max;
+    }
+    public static double minVidurkis(ArrayList<Studentai> sarasas){
+        Map<Integer, Double> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPazymejimoId, Studentai::getVidurkis));
+        double min = Collections.min(map.values());
+        return  min;
+    }
+    //8. Sukurti galimybę vartotojui atlikti studentų paiešką pagal pavardę arba gimimo datą. Vartotojas turi įvesti kriterijus į terminalą (Scanner).
+
+    public static void paieska(ArrayList<Studentai> sarasas, String fraze){
+        Scanner scan = new Scanner(System.in);
+        Map<String, String> map = sarasas.stream().collect(Collectors.toMap(Studentai::getPavardeVardas, Studentai::getGimimoData));
+        System.out.println("Paieška pagal stutendo pavardė arba gimimo datą (YYYY-mm-dd)");
+
 
     }
 }
